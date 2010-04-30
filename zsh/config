@@ -1,7 +1,9 @@
+autoload -U colors && colors
+
 if [[ -n $SSH_CONNECTION ]]; then
   export PS1='%m:%3~$(git_info_for_prompt)%# '
 else
-  export PS1='%3~$(git_info_for_prompt)%# '
+  export PS1='%{$fg[cyan]%}%3~ %B%{$fg[green]%}$(git_info_for_prompt)%{$reset_color%}%b▶ '
 fi
 
 export EDITOR='mate -w'
