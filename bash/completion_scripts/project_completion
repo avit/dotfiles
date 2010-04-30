@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 class ProjectCompletion
+  PROJECTS_PATH = "~/Sites/"
+
   def initialize(command)
     @command = command
   end
@@ -16,7 +18,7 @@ class ProjectCompletion
   end
 
   def projects
-    `ls ~/code/`.split
+    `ls #{PROJECTS_PATH}`.split
   end
 end
 
