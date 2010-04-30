@@ -1,13 +1,13 @@
 autoload -U colors && colors
 
 if [[ -n $SSH_CONNECTION ]]; then
-  export PS1='%m:%3~$(git_info_for_prompt)%# '
+  export PS1='%{$fg[cyan]%}%m:%3~ %{$fg_bold[green]%}$(git_info_for_prompt)%{$reset_color%}%b▶ '
 else
-  export PS1='%{$fg[cyan]%}%3~ %B%{$fg[green]%}$(git_info_for_prompt)%{$reset_color%}%b▶ '
+  export PS1='%{$fg[cyan]%}%3~ %{$fg_bold[green]%}$(git_info_for_prompt)%{$reset_color%}%b▶ '
 fi
 
 export EDITOR='mate -w'
-export PATH="~/bin:~/bin/ec2/bin:/usr/local/homebrew/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
+export PATH="$HOME/bin:$HOME/bin/ec2/bin:/usr/local/homebrew/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
 export MANPATH="/usr/local/man:$MANPATH"
 
 # Search result coloring for grep
