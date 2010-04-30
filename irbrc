@@ -7,10 +7,27 @@ IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb_history"
 
 IRB.conf[:PROMPT_MODE] = :SIMPLE
 
-%w[rubygems looksee/shortcuts wirble].each do |gem|
+%w[rubygems terminfo looksee/shortcuts wirble].each do |gem|
   begin
     require gem
   rescue LoadError
+  end
+end
+
+if defined?(Wirble)
+  Wirble.init
+  Wirble.colorize
+end
+
+module Kernel
+  alias_method :orig_methods, :methods
+
+  def methods(*args)
+    if caller.first =~ /\(irb\):\d+:in `irb_binding'/
+      lp(self, *args)
+    else
+      orig_methods
+    end
   end
 end
 

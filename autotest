@@ -1,0 +1,121 @@
+# -*- ruby -*-
+$KCODE = 'U'
+
+# require 'autotest/autoupdate'
+# require 'autotest/emacs'
+# require 'autotest/fixtures'
+# require 'autotest/heckle'
+# require 'autotest/html_report'
+# require 'autotest/kdenotify'
+# require 'autotest/menu'
+# require 'autotest/migrate'
+# require 'autotest/notify'
+# require 'autotest/pretty'
+require 'redgreen'
+# require 'autotest/screen'
+# require 'autotest/growl'
+# require 'autotest/shame'
+# require 'autotest/snarl'
+# require 'autotest/timestamp'
+require 'autotest/fsevent'
+
+# Autotest::Screen.statusline = '%H %`%-w%{=b bw}%n %t%{-}%+w'
+
+
+# do not require autotest/growl above if using this one
+module Autotest::Growl
+
+  @@current_directory_name = Dir.pwd.match(/([^\/]+)\z/).to_s
+  @@image_root = '~/Library/Application\ Support/Growl/Icons/doom'
+
+  def self.growl title, msg, img, pri=0, sticky=""
+    img = img ? "--image " + img : ""
+    system "growlnotify -n autotest #{img} -p #{pri} -m #{msg.inspect} #{title} #{sticky}"
+  end
+
+  Autotest.add_hook :initialize do |at|
+    %w{.svn .hg .git vendor}.each {|exception| at.add_exception(exception)}
+  end
+
+  Autotest.add_hook :run do |at|
+    growl "autotest running", "Started", '/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/html/images/rails.png', -1
+  end
+
+  Autotest.add_hook :ran_command do |at|
+    results = [at.results].flatten.join("\n")
+    output = results.slice(/(\d+)\stests,\s(\d+)\sassertions,\s(\d+)\sfailures,\s(\d+)\serrors/)
+    if output
+      if $~[3].to_i > 0 || $~[4].to_i > 0
+        cnt = [(9 + $~[3].to_i + $~[4].to_i) / 10 * 10, 50].min
+        # use fail#{cnt} for multiple fail images
+        growl "FAIL", "#{output}", "#{@@image_root}/fail#{cnt}.png", 2
+      else
+        growl "Pass", "#{output}", "#{@@image_root}/pass.png"
+      end
+    end
+  end
+
+end
+
+
+# do not require autotest/menu above if using this one
+# this is copied from ZenTest-3.11.1
+# because it's not included in the latest gem
+module Autotest::Menu
+  WINDOZE = /win32/ =~ RUBY_PLATFORM unless defined? WINDOZE
+
+  if WINDOZE then
+    require "Win32API"
+    def self.getchar
+      Win32API.new("crtdll", "_getch", [], "L").Call
+    end
+  else
+    STTY_SAVE_STATE=`stty -g`
+    def self.getchar
+      system 'stty raw echo'
+      STDIN.getc
+    ensure
+      system "stty '#{STTY_SAVE_STATE}'"
+    end
+  end
+
+  def self.menu(choices)
+    result = nil
+    choices.sort.each do |c, desc|
+      puts "#{c.chr}: #{desc}"
+    end
+    until choices[result]
+      print "menu> "
+      result = getchar
+      print " invalid input" unless choices[result]
+      puts
+    end
+    result
+  end
+
+  Autotest.add_hook(:interrupt) do |at|
+    $stderr.puts "menu"
+    case menu ?q => "quit", ?c => "continue", ?r => "restart"
+    when ?c
+      true
+    when ?r
+      at.reset
+      true
+    when ?q
+      at.wants_to_quit = true
+      true
+    else
+      false
+    end
+    # puts "you chose #{c.chr}"
+  end
+end
+
+
+# Don't watch version control support files
+Autotest.add_hook :initialize do |at|
+  %w{.svn .hg .git}.each { |exception| at.add_exception(exception) }
+  # Ignore files in tmp
+  at.add_exception %r%^\./tmp%
+  nil
+end
