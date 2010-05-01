@@ -1,3 +1,5 @@
+umask 022
+
 autoload -U colors && colors
 
 if [[ -n $SSH_CONNECTION ]]; then
