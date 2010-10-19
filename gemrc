@@ -1,6 +1,6 @@
 ---
-gem: --rdoc
-rdoc: --inline-source --line-numbers --format=html --template=hanna
+gem: --no-rdoc --no-ri
+rdoc: --inline-source --line-numbers --format=html
 :update_sources: true
 :verbose: true
 :backtrace: false
