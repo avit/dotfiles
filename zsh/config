@@ -22,6 +22,11 @@ export RDOCOPT="-S -f html -T hanna"
 export SVN_EDITOR=$EDITOR
 export LC_CTYPE=en_US.UTF-8
 
+# rvm
+if [[ -s ~/.rvm/scripts/rvm ]]; then
+  source ~/.rvm/scripts/rvm
+fi
+
 fpath=(~/.zsh/functions $fpath)
 
 autoload -U ~/.zsh/functions/*(:t)
