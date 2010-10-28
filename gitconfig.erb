@@ -1,8 +1,6 @@
 [user]
   name = <%= print("Your Name: "); STDOUT.flush; STDIN.gets.chomp %>
   email = <%= print("Your Email: "); STDOUT.flush; STDIN.gets.chomp %>
-[github]
-  user = <%= print("Github User: "); STDOUT.flush; STDIN.gets.chomp %>
 [alias]
   cp = cherry-pick
   co = checkout
@@ -12,24 +10,32 @@
   br = branch
   mg = merge
   mt = mergetool
-[apply]
-  whitespace = nowarn
-[core]
-  excludesfile = <%= ENV['HOME'] %>/.gitexcludes
-  editor = <%= ENV['EDITOR'] %>
-[pack]
-  threads = 0
 [color]
-  ui = auto
-  # branch = auto
-  # diff = auto
-  # status = auto
+  diff = auto
+  status = auto
+  branch = auto
 [color "diff"]
   new = green
   old = red
   frag = magenta
   meta = cyan
   commit = normal
+[core]
+  excludesfile = <%= ENV['HOME'] %>/.gitexcludes
+  editor = <%= ENV['EDITOR'] %>
+  autocrlf = input
+[apply]
+  whitespace = nowarn
+[format]
+  pretty = %C(yellow)%h%Creset %s %C(red)(%cr)%Creset
+[github]
+  user = <%= print("Github User: "); STDOUT.flush; STDIN.gets.chomp %>
+  token = <%= print("GitHub API Token: "); STDOUT.flush; STDIN.gets.chomp %>
+[pack]
+  threads = 0
+[diff]
+  renames = copies
+  renamelimit = 0
 [merge]
   summary = true
   log = true
@@ -39,17 +45,5 @@
 [mergetool "chdiff"]
   cmd = /usr/bin/env chdiff --wait "$LOCAL" "$REMOTE"
   trustExitCode = false
-[mergetool "diffmerge"]
-  cmd = /Applications/DiffMerge.app/Contents/MacOS/DiffMerge -merge -nosplash -result="$MERGED" "$LOCAL" "$BASE" "$REMOTE"
-  trustExitCode = true
-[mergetool "opendiff"]
-  cmd = /usr/bin/env opendiff "$LOCAL" "$REMOTE" -ancestor "$BASE" -merge "$MERGED"
-  trustExitCode = false
-[mergetool "deltawalker"]
-  cmd = git-merge-dw "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
-  trustExitCode = false
-[diff]
-  renames = copies
-  renamelimit = 0
 [rerere]
   enabled = 1
