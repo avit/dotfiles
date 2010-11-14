@@ -8,3 +8,6 @@ rdoc: --inline-source --line-numbers --format=html
 :benchmark: false
 :sources:
 - http://rubygems.org/
+<%= print("Gemcutter key: ")
+    STDOUT.flush; gkey = STDIN.gets.chomp
+    "gemcutter_key: #{gkey}" unless gkey.empty? %>
