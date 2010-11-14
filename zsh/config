@@ -1,14 +1,15 @@
 autoload -U colors && colors
 
 if [[ -n $SSH_CONNECTION ]]; then
-  export PS1='%{$fg[blue]%}%n@%m:%{$fg[cyan]%}%3~ %{$fg_bold[green]%}$(git_info_for_prompt)%{$reset_color%}%b▶ '
+  export PS1=$'\n%{$fg[blue]%}%n@%m:%{$fg[cyan]%}%3~ %{$fg_bold[green]%}$(git_info_for_prompt)%{$reset_color%}%b\n▶ '
 else
-  export PS1='%{$fg[cyan]%}%3~ %{$fg_bold[green]%}$(git_info_for_prompt)%{$reset_color%}%b▶ '
+  export PS1=$'\n%{$fg[cyan]%}%3~ %{$fg_bold[green]%}$(git_info_for_prompt)%{$reset_color%}%b\n▶ '
 fi
 
 export EDITOR='mate -w'
 
-# Search result coloring for grep
+# Terminal colors
+export CLICOLOR=1
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;33'
 
@@ -43,7 +44,7 @@ setopt EXTENDED_HISTORY # add timestamps to history
 setopt PROMPT_SUBST
 setopt CORRECT
 setopt COMPLETE_IN_WORD
-setopt IGNORE_EOF
+# setopt IGNORE_EOF # disable Ctrl-D to logout
 
 setopt APPEND_HISTORY # adds history
 setopt INC_APPEND_HISTORY SHARE_HISTORY  # adds history incrementally and share it across sessions
