@@ -24,6 +24,12 @@ if [[ -s ~/.rvm/scripts/rvm ]]; then
   source ~/.rvm/scripts/rvm
 fi
 
+# Read man pages in the browser
+# requires http://www.bruji.com/bwana/
+if [[ -z $SSH_CONNECTION ]]; then
+  USE_BWANA=`/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -dump | grep 'bindings:\W*man:'`
+fi
+
 fpath=(~/.zsh/functions $fpath)
 
 autoload -U ~/.zsh/functions/*(:t)

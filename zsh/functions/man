@@ -1,0 +1,6 @@
+# requires http://www.bruji.com/bwana/
+if [[ -n $USE_BWANA ]]; then
+  open man:$1
+else
+  /usr/bin/env man $1
+fi
