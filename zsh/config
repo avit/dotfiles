@@ -1,10 +1,14 @@
 autoload -U colors && colors
 
 if [[ -n $SSH_CONNECTION ]]; then
-  export PS1=$'\n%{$fg[cyan]%}%n@%m:%{$fg[blue]%}%3~ %{$fg_bold[green]%}$(git_info_for_prompt)%{$reset_color%}%b\n▶ '
-else
-  export PS1=$'\n%{$fg[blue]%}%3~ %{$fg_bold[green]%}$(git_info_for_prompt)%{$reset_color%}%b\n▶ '
+  PROMPT_HOST = $'%{$fg[cyan]%}%n@%m:'
 fi
+
+function precmd {
+  print -rP $'\n$PROMPT_HOST%{$fg[blue]%}%3~ %{$fg_bold[green]%}$(git_info_for_prompt)%{$reset_color%}%b'
+}
+
+PROMPT='▶ '
 
 export EDITOR='mate -w'
 
