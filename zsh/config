@@ -1,7 +1,7 @@
 autoload -U colors && colors
 
 if [[ -n $SSH_CONNECTION ]]; then
-  PROMPT_HOST = $'%{$fg[cyan]%}%n@%m:'
+  PROMPT_HOST=$'%{$fg[cyan]%}%n@%m:'
 fi
 
 function precmd {
