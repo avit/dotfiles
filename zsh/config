@@ -1,11 +1,11 @@
 autoload -U colors && colors
 
 if [[ -n $SSH_CONNECTION ]]; then
-  PROMPT_HOST=$'%{$fg[cyan]%}%n@%m:'
+  PROMPT_HOST="%{$fg[cyan]%}%n@%m%{$reset_color%}:"
 fi
 
 function precmd {
-  print -rP $'\n$PROMPT_HOST%{$fg[blue]%}%3~ %{$fg_bold[green]%}$(git_info_for_prompt)%{$reset_color%}%b'
+  print -rP $'\n$PROMPT_HOST%{$fg[blue]%}%3~ %{$fg[green]%}$(git_info_for_prompt)%{$reset_color%}%b'
 }
 
 PROMPT='▶ '
