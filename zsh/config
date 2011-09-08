@@ -10,7 +10,11 @@ function precmd {
 
 PROMPT='▶ '
 
-export EDITOR='mate -w'
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='mate -w'
+fi
 
 # Terminal colors
 export CLICOLOR=1
