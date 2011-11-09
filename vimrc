@@ -6,7 +6,7 @@ set nocompatible
 set backspace=indent,eol,start
 
 " use the system clipboard for copy/paste
-set clipboard=unnamed
+set clipboard+=unnamed
 
 set nobackup
 set nowritebackup
