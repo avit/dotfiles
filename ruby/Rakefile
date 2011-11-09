@@ -1,0 +1,10 @@
+require File.join(File.dirname(__FILE__), '../dotfile_installer.rb')
+
+install_dotfiles(
+  "autotest"  => "~/.autotest",
+  "gemrc.erb" => "~/.gemrc",
+  "irbrc"     => "~/.irbrc",
+  "railsrc"   => "~/.railsrc",
+  "rdebugrc"  => "~/.rdebugrc"
+)
+

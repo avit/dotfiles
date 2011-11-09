@@ -1,0 +1,7 @@
+require File.join(File.dirname(__FILE__), '../dotfile_installer.rb')
+
+install_dotfiles(
+  "gitexcludes"   => "~/.gitexcludes",
+  "gitconfig.erb" => "~/.gitconfig"
+)
+
