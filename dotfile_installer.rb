@@ -38,7 +38,7 @@ def add_plugin_dotfile( plugin, src, dest )
 end
 
 def add_plugin_install_task( plugin, dotfiles )
-  desc "Install #{plugin}"
+  desc plugin
   task :install => "#{plugin}:install"
   namespace plugin.to_sym do
     desc dotfiles.values.join " "
