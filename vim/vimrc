@@ -40,6 +40,9 @@ set complete=.,t
 set ignorecase
 set smartcase
 
+" Load pathogen plugins
+call pathogen#infect()
+
 " \ is the leader character
 let mapleader = ","
 
