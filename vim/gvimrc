@@ -7,6 +7,4 @@
 set guioptions-=T " hide toolbar
 set lines=55 columns=100
 
-colorscheme railscasts
-
-set guifont=Menlo-Regular:h10
+set guifont=Menlo-Regular:h13

@@ -46,10 +46,20 @@ call pathogen#infect()
 " \ is the leader character
 let mapleader = ","
 
+let g:solarized_termcolors = 256
+let g:solarized_termtrans = 1
+let g:solarized_bold = 1
+let g:solarized_underline = 1
+let g:solarized_italic = 1
+let g:solarized_contrast = "normal"
+let g:solarized_visibility = "normal"
+
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
-  syntax on
+  syntax enable
+  set background=dark
+  colorscheme solarized
   set hlsearch
 endif
 
