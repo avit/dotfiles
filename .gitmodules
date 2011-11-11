@@ -31,3 +31,6 @@
 [submodule "vim/bundle/bundler"]
 	path = vim/bundle/bundler
 	url = git://github.com/tpope/vim-bundler.git
+[submodule "vim/bundle/repeat"]
+	path = vim/bundle/repeat
+	url = git://github.com/tpope/vim-repeat.git
