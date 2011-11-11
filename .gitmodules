@@ -13,3 +13,6 @@
 [submodule "vim/bundle/vim-cucumber"]
 	path = vim/bundle/cucumber
 	url = https://github.com/tpope/vim-cucumber.git
+[submodule "vim/bundle/vim-haml"]
+	path = vim/bundle/haml
+	url = https://github.com/tpope/vim-haml.git
