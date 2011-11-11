@@ -37,3 +37,6 @@
 [submodule "vim/bundle/rvm"]
 	path = vim/bundle/rvm
 	url = git://github.com/tpope/vim-rvm.git
+[submodule "vim/bundle/rake"]
+	path = vim/bundle/rake
+	url = git://github.com/tpope/vim-rake.git
