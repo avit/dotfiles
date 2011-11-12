@@ -64,3 +64,6 @@
 [submodule "vim/bundle/makegreen"]
 	path = vim/bundle/makegreen
 	url = git://github.com/reinh/vim-makegreen.git
+[submodule "vim/bundle/conque-term"]
+	path = vim/bundle/conque-term
+	url = git://github.com/rosenfeld/conque-term.git
