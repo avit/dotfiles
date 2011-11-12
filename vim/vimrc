@@ -42,6 +42,7 @@ set smartcase
 
 " Load pathogen plugins
 call pathogen#infect()
+call pathogen#helptags()
 
 " \ is the leader character
 let mapleader = ","
