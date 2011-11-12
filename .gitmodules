@@ -61,3 +61,6 @@
 [submodule "vim/bundle/ruby"]
 	path = vim/bundle/ruby
 	url = git://github.com/vim-ruby/vim-ruby.git
+[submodule "vim/bundle/makegreen"]
+	path = vim/bundle/makegreen
+	url = git://github.com/reinh/vim-makegreen.git
