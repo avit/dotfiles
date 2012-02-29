@@ -4,3 +4,5 @@ Thumbs.db
 .svn
 *~
 .*.swp
+.tags
+.tags_sorted_by_file
