@@ -67,3 +67,6 @@
 [submodule "vim/bundle/conque-term"]
 	path = vim/bundle/conque-term
 	url = git://github.com/rosenfeld/conque-term.git
+[submodule "vim/bundle/colors-tomorrow"]
+	path = vim/bundle/colors-tomorrow
+	url = https://github.com/chriskempson/Vim-Tomorrow-Theme
