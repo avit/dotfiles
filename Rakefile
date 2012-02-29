@@ -1,3 +1,7 @@
+desc "Install all"
+task :install do
+end
+
 Dir.glob('*/Rakefile').each { |f| import f }
 
 task :default do
@@ -18,15 +22,14 @@ end
 # Load oh-my-zsh from a submodule
 if File.exists?('zsh')
   namespace :zsh do
-    desc "~/.zshrc"
     file File.expand_path("~/.zshrc") do
       zsh_path = plugin_path('zsh',nil)
       ENV['ZSH'] = zsh_path.to_s
       sh "sh #{zsh_path}/tools/install.sh"
     end
-    task :install => File.expand_path("~/.zshrc")
+    desc "~/.zshrc"
+    task :install => "~/.zshrc"
   end
   desc "zsh"
   task :install => ["zsh:install"]
 end
-
