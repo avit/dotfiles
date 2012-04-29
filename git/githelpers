@@ -37,3 +37,10 @@ pretty_git_log() {
         # Page only if we need to
         less -FXRS
 }
+
+show_git_aliases() {
+    git config --get-regexp 'alias.*' |
+        sort |
+        sed -E -e 's/^alias.([^ ]+) /\1>/' -e '/aliases/ d' |
+        column -t -s '>'
+}
