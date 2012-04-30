@@ -2,50 +2,74 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+" Load pathogen plugins
+call pathogen#infect()
+call pathogen#helptags()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BASIC EDITING CONFIGURATION
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" , is the leader character (Default \)
+let mapleader = ","
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
 " use the system clipboard for copy/paste
 set clipboard+=unnamed
 
-set nobackup
-set nowritebackup
-set history=50		" keep 50 lines of command line history
+" Store temporary files in a central spot
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
+set hidden " allow unsaved background buffers and remember marks/undo for them
+set history=1000	" keep 50 lines of command line history
+
+set showtabline=2 " always show tabline
+set laststatus=2  " Always display the status line
 set ruler		      " show the cursor position all the time
-set showcmd		    " display incomplete commands
+set showcmd		    " display selected command movements in status line
+set cursorline    " highlight current line
+
+" Show line numbers
+set number numberwidth=5
+
+set winwidth=79   " Minimum width for current window
+set scrolloff=3   " Show minimum lines around current line when scrolling
+set sidescrolloff=8 " Show minimum chars to right of cursor when scrolling
+
 set incsearch		  " do incremental searching
+set hlsearch      " highlight last search results
 
-" Switch wrap off for everything
-set nowrap
+" case only matters with mixed case expressions
+set ignorecase smartcase
 
-" Softtabs, 2 spaces
-set tabstop=2
-set shiftwidth=2
-set expandtab
-
-" Always display the status line
-set laststatus=2
-
-" Numbers
-set number
-set numberwidth=5
+" Soft tabs, 2 spaces
+set tabstop=2 shiftwidth=2
+set expandtab     " Expand tabs to spaces
+set autoindent		" always set autoindenting on
+set nowrap        " Switch wrap off for everything
 
 " Tab completion options
 " (only complete to the longest unambiguous match, and show a menu)
 set completeopt=longest,menu
-set wildmode=list:longest,list:full
+set wildmode=longest,full
+set wildmenu
 set complete=.,t
 
-" case only matters with mixed case expressions
-set ignorecase
-set smartcase
+" set foldenable
+set foldmethod=syntax
+set foldlevel=1
+set foldnestmax=2
 
-" Load pathogen plugins
-call pathogen#infect()
-call pathogen#helptags()
+" Enable file type detection.
+filetype plugin indent on
 
-" \ is the leader character
-let mapleader = ","
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" COLOR SCHEME
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:solarized_termcolors = 256
 let g:solarized_termtrans = 1
@@ -56,70 +80,127 @@ let g:solarized_contrast = "normal"
 let g:solarized_visibility = "normal"
 
 " Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   syntax enable
   set background=dark
   colorscheme solarized
-  set hlsearch
 endif
 
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
+if (has("gui_running"))
+  set transparency=6
+endif
 
-  " Set File type to 'text' for files ending in .txt
-  autocmd BufNewFile,BufRead *.txt setfiletype text
+highlight Search gui=underline guifg=NONE guibg=Black guisp=Red
+highlight Search cterm=underline ctermfg=NONE ctermbg=Black
+highlight IncSearch gui=reverse
+highlight IncSearch cterm=reverse
 
-  " Enable soft-wrapping for text files
-  autocmd FileType text,markdown,html,xhtml,eruby setlocal wrap linebreak nolist
+highlight Folded gui=italic
+highlight Folded cterm=italic guibg=Black
+highlight FoldColumn guifg=Yellow
 
-  augroup vimrcEx
-  au!
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" STATUS LINE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 
-  " For all text files set 'textwidth' to 78 characters.
-  " autocmd FileType text setlocal textwidth=78
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CUSTOM AUTOCMDS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
+augroup vimrcEx
+  " Remove all autocommands for the current group
+  autocmd!
+
+  " Jump to last cursor position unless it's invalid or in an event handler
   autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
     \ endif
 
-  " Automatically load .vimrc source when saved
+  " Set File type to 'text' for files ending in .txt
+  autocmd BufNewFile,BufRead *.txt
+    \ setfiletype text
+
+  " For all text files set 'textwidth' to 78 characters.
+  autocmd FileType text
+    \ setlocal textwidth=78
+
+  " Enable soft-wrapping for text files
+  autocmd FileType text,markdown,html,xhtml,eruby
+    \ setlocal wrap linebreak nolist
+
+  " Use 4 spaces for python indentation
+  autocmd FileType python
+    \ setlocal shiftwidth=4 softtabstop=4 expandtab
+
+  autocmd BufRead,BufNewFile *.sass
+    \ setfiletype sass
+
+  autocmd BufRead *.mkd,*.markdown
+    \ set autoindent formatoptions=tcroqn2 comments=n:&gt;
+
+  " Indent p tags
+  autocmd FileType html,eruby
+    \ if g:html_indent_tags !~ '\\|p\>' |
+    \   let g:html_indent_tags .= '\|p\|li\|dt\|dd' |
+    \ endif
+
+  " Use rspec compiler for autotest on spec files
+  autocmd BufNewFile,BufRead *_spec.rb compiler rspec
+
+  " Strip trailing whitespace
+  autocmd BufWritePre * call StripTrailingWhitespace()
+
+  " Ignore listed file types for sensitive trailing whitespace
+  autocmd FileType markdown let b:noStripWhitespace=1
+
+  " Automatically reload .vimrc source when saved
   autocmd BufWritePost .vimrc source $MYVIMRC
+augroup END
 
-  augroup END
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" STRIP TRAILING WHITESPACE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! StripTrailingWhitespace()
+  " Only strip if the b:noStripeWhitespace variable isn't set
+  if exists('b:noStripWhitespace')
+    return
+  endif
+  %s/\s\+$//e
+endfunction
 
-else
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MISC KEY MAPS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-  set autoindent		" always set autoindenting on
+" Use Ctrl-C to escape from insert mode
+imap <c-c> <esc>
 
-endif " has("autocmd")
+" Jump to previous buffer
+nnoremap <leader><leader> <c-^>
 
-" if has("folding")
-  " set foldenable
-  " set foldmethod=syntax
-  " set foldlevel=1
-  " set foldnestmax=2
-  " set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
-" endif
+" Hide search highlighting when pressing return
+nnoremap <CR> :nohlsearch<CR>
 
-" No Help, please
-nmap <F1> <Esc>
+" Toggle search highlighting
+noremap <Leader>h :set invhlsearch<CR>
 
-" Hide search highlighting
-map <Leader>h :set invhls <CR>
+" Yank to system clipboard
+map <leader>y "*y
 
-"
-" Editing
-"
+" Move around splits with <c-hjkl>
+" nnoremap <c-j> <c-w>j
+" nnoremap <c-k> <c-w>k
+" nnoremap <c-h> <c-w>h
+" nnoremap <c-l> <c-w>l
+
+" Change MakeGreen default keybinding from <Leader>t
+map <Leader>mg <Plug>MakeGreen
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" EDITING
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Move lines up and down
 map <C-K> :m -2 <CR>
@@ -129,9 +210,9 @@ map <C-J> :m +1 <CR>
 " Visual mode: D
 vmap D y'>p
 
-"
-" File Navigation
-"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" FILE NAVIGATION
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Press ^F from insert mode to insert the current file name
 imap <C-F> <C-R>=expand("%")<CR>
@@ -148,22 +229,64 @@ map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 " Command mode: Ctrl+P
 cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
-" Press Shift+P while in visual mode to replace the selection without
-" overwriting the default register
-vmap P p :call setreg('"', getreg('0')) <CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MAPS TO JUMP TO SPECIFIC COMMAND-T TARGETS AND FILES
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>gr :topleft :split config/routes.rb<cr>
+function! ShowRoutes()
+  " Requires 'scratch' plugin
+  :topleft 100 :split __Routes__
+  " Make sure Vim doesn't write __Routes__ as a file
+  :set buftype=nofile
+  " Delete everything
+  :normal 1GdG
+  " Put routes output in buffer
+  :0r! rake -s routes
+  " Size window to number of lines (1 plus rake output length)
+  :exec ":normal " . line("$") . "_ "
+  " Move cursor to bottom
+  :normal 1GG
+  " Delete empty trailing line
+  :normal dd
+endfunction
+map <leader>gR :call ShowRoutes()<cr>
+map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
+map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
+map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
+map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
+map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
+map <leader>gs :CommandTFlush<cr>\|:CommandT public/stylesheets/sass<cr>
+map <leader>gf :CommandTFlush<cr>\|:CommandT features<cr>
+map <leader>gg :topleft 100 :split Gemfile<cr>
+map <leader>gt :CommandTFlush<cr>\|:CommandTTag<cr>
+map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
 
-" Hashrocket
-imap <C-L> <Space>=><Space>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" OPEN FILES IN DIRECTORY OF CURRENT FILE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+map <leader>e :edit %%
+map <leader>v :view %%
 
-" Local config
-if filereadable(".vimrc.local")
-  source .vimrc.local
-endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RENAME CURRENT FILE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>n :call RenameFile()<cr>
 
-" Use Ack instead of Grep when available
-if executable("ack")
-  set grepprg=ack\ -H\ --nogroup\ --nocolor\ --ignore-dir=tmp\ --ignore-dir=coverage
-endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" COMMANDS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Open URL
 command! -bar -nargs=1 OpenURL :!open <args>
@@ -177,4 +300,17 @@ function! OpenURL()
   endif
 endfunction
 map <Leader>w :call OpenURL()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LOCAL CONFIG
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Use Ack instead of Grep when available
+if executable("ack")
+  set grepprg=ack\ -H\ --nogroup\ --nocolor\ --ignore-dir=tmp\ --ignore-dir=coverage
+endif
+
+if filereadable(".vimrc.local")
+  source .vimrc.local
+endif
 
