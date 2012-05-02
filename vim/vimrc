@@ -143,12 +143,6 @@ augroup vimrcEx
   autocmd BufRead *.mkd,*.markdown
     \ set autoindent formatoptions=tcroqn2 comments=n:&gt;
 
-  " Indent p tags
-  autocmd FileType html,eruby
-    \ if g:html_indent_tags !~ '\\|p\>' |
-    \   let g:html_indent_tags .= '\|p\|li\|dt\|dd' |
-    \ endif
-
   " Use rspec compiler for autotest on spec files
   autocmd BufNewFile,BufRead *_spec.rb compiler rspec
 
