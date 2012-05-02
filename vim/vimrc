@@ -57,7 +57,7 @@ set nowrap        " Switch wrap off for everything
 set completeopt=longest,menu
 set wildmode=longest,full
 set wildmenu
-set complete=.,t
+set complete=.,t  " Complete from current buffer and tags
 
 " set foldenable
 set foldmethod=syntax
