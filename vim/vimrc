@@ -90,6 +90,9 @@ if (has("gui_running"))
   set transparency=6
 endif
 
+highlight Normal guibg=#2c2c2c
+highlight CursorLine guibg=#393939
+
 highlight Search gui=underline guifg=NONE guibg=Black guisp=Red
 highlight Search cterm=underline ctermfg=NONE ctermbg=Black
 highlight IncSearch gui=reverse
