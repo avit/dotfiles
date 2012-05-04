@@ -67,6 +67,9 @@ set foldnestmax=2
 " Enable file type detection.
 filetype plugin indent on
 
+" Show invisible characters as special chars
+set listchars=tab:▸\ ,eol:¬,extends:…,nbsp:◇
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLOR SCHEME
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -89,6 +92,9 @@ endif
 if (has("gui_running"))
   set transparency=6
 endif
+
+highlight SpecialKey guifg=#505080
+highlight NonText guifg=#505080
 
 highlight Normal guibg=#2c2c2c
 highlight CursorLine guibg=#393939
@@ -182,6 +188,9 @@ nnoremap <CR> :nohlsearch<CR>
 
 " Toggle search highlighting
 noremap <Leader>h :set invhlsearch<CR>
+
+" Toggle invisibles
+nnoremap <Leader>l :set list!<CR>
 
 " Yank to system clipboard
 map <leader>y "*y
