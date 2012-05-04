@@ -69,7 +69,7 @@
 	url = git://github.com/rosenfeld/conque-term.git
 [submodule "vim/bundle/colors-tomorrow"]
 	path = vim/bundle/colors-tomorrow
-	url = https://github.com/chriskempson/Vim-Tomorrow-Theme
+	url = https://github.com/chriskempson/vim-tomorrow-theme.git
 [submodule "vim/bundle/colors-hemisu"]
 	path = vim/bundle/colors-hemisu
 	url = https://github.com/noahfrederick/Hemisu.git
