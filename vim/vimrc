@@ -25,12 +25,12 @@ set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 set hidden " allow unsaved background buffers and remember marks/undo for them
-set history=1000	" keep 50 lines of command line history
+set history=1000  " keep 50 lines of command line history
 
 set showtabline=2 " always show tabline
 set laststatus=2  " Always display the status line
-set ruler		      " show the cursor position all the time
-set showcmd		    " display selected command movements in status line
+set ruler          " show the cursor position all the time
+set showcmd        " display selected command movements in status line
 set cursorline    " highlight current line
 
 " Show line numbers
@@ -40,7 +40,7 @@ set winwidth=79   " Minimum width for current window
 set scrolloff=3   " Show minimum lines around current line when scrolling
 set sidescrolloff=8 " Show minimum chars to right of cursor when scrolling
 
-set incsearch		  " do incremental searching
+set incsearch      " do incremental searching
 set hlsearch      " highlight last search results
 
 " case only matters with mixed case expressions
@@ -49,7 +49,7 @@ set ignorecase smartcase
 " Soft tabs, 2 spaces
 set tabstop=2 shiftwidth=2
 set expandtab     " Expand tabs to spaces
-set autoindent		" always set autoindenting on
+set autoindent    " always set autoindenting on
 set nowrap        " Switch wrap off for everything
 
 " Tab completion options
@@ -291,9 +291,9 @@ function! OpenURL()
   let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:]*')
   echo s:uri
   if s:uri != ""
-	  exec "!open \"" . s:uri . "\""
+    exec "!open \"" . s:uri . "\""
   else
-	  echo "No URI found in line."
+    echo "No URI found in line."
   endif
 endfunction
 map <Leader>w :call OpenURL()<CR>
