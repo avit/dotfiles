@@ -73,3 +73,6 @@
 [submodule "vim/bundle/colors-hemisu"]
 	path = vim/bundle/colors-hemisu
 	url = https://github.com/noahfrederick/Hemisu.git
+[submodule "vim/bundle/syntastic"]
+	path = vim/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic
