@@ -76,3 +76,6 @@
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic
+[submodule "vim/bundle/instant-markdown"]
+	path = vim/bundle/instant-markdown
+	url = https://github.com/suan/vim-instant-markdown.git
