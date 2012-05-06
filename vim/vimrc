@@ -112,7 +112,17 @@ highlight FoldColumn guifg=Yellow
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+highlight User1 gui=bold cterm=bold
+              \ ctermbg=white guibg=white
+              \ ctermfg=red guifg=red
+
+set statusline=
+set statusline+=%<%f                " filename, cut at start
+set statusline+=\ (%{&ft})          " file syntax
+set statusline+=%4(%m%)             " modified flag [+]
+set statusline+=%=                  " right align
+set statusline+=%-19(%3l,%02c%03V%) " cursor position
+set statusline+=%1*%{SyntasticStatuslineFlag()}%*
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
