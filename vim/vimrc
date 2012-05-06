@@ -29,8 +29,8 @@ set history=1000  " keep 50 lines of command line history
 
 set showtabline=2 " always show tabline
 set laststatus=2  " Always display the status line
-set ruler          " show the cursor position all the time
-set showcmd        " display selected command movements in status line
+set ruler         " show the cursor position all the time
+set showcmd       " display selected command movements in status line
 set cursorline    " highlight current line
 
 " Show line numbers
@@ -40,7 +40,7 @@ set winwidth=79   " Minimum width for current window
 set scrolloff=3   " Show minimum lines around current line when scrolling
 set sidescrolloff=8 " Show minimum chars to right of cursor when scrolling
 
-set incsearch      " do incremental searching
+set incsearch     " do incremental searching
 set hlsearch      " highlight last search results
 
 " case only matters with mixed case expressions
