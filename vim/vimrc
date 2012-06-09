@@ -10,6 +10,9 @@ call pathogen#helptags()
 " BASIC EDITING CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Easier non-interactive command insertion
+nnoremap <Space> :
+
 " , is the leader character (Default \)
 let mapleader = ","
 
