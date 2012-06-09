@@ -320,3 +320,4 @@ if filereadable(".vimrc.local")
   source .vimrc.local
 endif
 
+let g:slime_target = "tmux"

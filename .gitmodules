@@ -82,3 +82,6 @@
 [submodule "vim/bundle/auto-pairs"]
 	path = vim/bundle/auto-pairs
 	url = https://github.com/jiangmiao/auto-pairs.git
+[submodule "vim/bundle/slime"]
+	path = vim/bundle/slime
+	url = https://github.com/jpalardy/vim-slime.git
