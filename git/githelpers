@@ -44,3 +44,7 @@ show_git_aliases() {
         sed -E -e 's/^alias.([^ ]+) /\1>/' -e '/aliases/ d' |
         column -t -s '>'
 }
+
+show_git_ignored() {
+  git clean -ndX | sed -Ee 's/^Would remove //'
+}
