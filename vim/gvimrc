@@ -6,5 +6,5 @@
 
 set guioptions-=T " hide toolbar
 set lines=55 columns=100
-
-set guifont=Menlo-Regular:h13
+set guifont=Menlo-Regular:h15
+set transparency=6
