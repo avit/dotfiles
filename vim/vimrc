@@ -62,7 +62,7 @@ set wildmode=longest,full
 set wildmenu
 set complete=.,t  " Complete from current buffer and tags
 
-" set foldenable
+set nofoldenable
 set foldmethod=syntax
 set foldlevel=1
 set foldnestmax=2
