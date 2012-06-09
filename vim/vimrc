@@ -42,6 +42,8 @@ set number numberwidth=5
 set winwidth=79   " Minimum width for current window
 set scrolloff=3   " Show minimum lines around current line when scrolling
 set sidescrolloff=8 " Show minimum chars to right of cursor when scrolling
+set splitbelow    " Open new splits below the current
+set splitright    " Open new vsplits to the right of the current
 
 set incsearch     " do incremental searching
 set hlsearch      " highlight last search results
