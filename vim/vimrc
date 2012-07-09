@@ -160,6 +160,9 @@ augroup vimrcEx
 
   " Automatically reload .vimrc source when saved
   autocmd BufWritePost .vimrc source $MYVIMRC
+
+  " Open NERDTree automatically if no file was specified
+  autocmd vimenter * if !argc() | NERDTree | endif
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -265,6 +268,8 @@ map <leader>gg :topleft 100 :split Gemfile<cr>
 map <leader>gt :CommandTFlush<cr>\|:CommandTTag<cr>
 map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
+
+nmap <silent> <leader>d :NERDTreeToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OPEN FILES IN DIRECTORY OF CURRENT FILE
