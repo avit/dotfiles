@@ -201,9 +201,6 @@ map <leader>y "*y
 " nnoremap <c-h> <c-w>h
 " nnoremap <c-l> <c-w>l
 
-" Change MakeGreen default keybinding from <Leader>t
-map <Leader>mg <Plug>MakeGreen
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " EDITING
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
