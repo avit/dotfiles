@@ -98,20 +98,8 @@ endif
 
 highlight Folded gui=italic cterm=italic guibg=Black
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" STATUS LINE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-highlight User1 gui=bold cterm=bold
-              \ ctermbg=white guibg=white
-              \ ctermfg=red guifg=red
-
-set statusline=
-set statusline+=%<%f                " filename, cut at start
-set statusline+=\ (%{&ft})          " file syntax
-set statusline+=%4(%m%)             " modified flag [+]
-set statusline+=%=                  " right align
-set statusline+=%-19(%3l,%02c%03V%) " cursor position
-set statusline+=%1*%{SyntasticStatuslineFlag()}%*
+" Status bar symbols require patched font to use 'fancy'
+let g:Powerline_symbols = 'fancy'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
