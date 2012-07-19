@@ -150,7 +150,7 @@ augroup vimrcEx
   autocmd BufWritePost .vimrc source $MYVIMRC
 
   " Open NERDTree automatically if no file was specified
-  autocmd vimenter * if !argc() | NERDTree | endif
+  " autocmd vimenter * if !argc() | NERDTree | endif
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
