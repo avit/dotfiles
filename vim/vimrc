@@ -202,7 +202,7 @@ map <C-J> :m +1 <CR>
 
 " Duplicate a selection
 " Visual mode: D
-vmap D y'>p
+vmap D "dy'>"dp
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FILE NAVIGATION
