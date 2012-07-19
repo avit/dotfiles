@@ -303,7 +303,7 @@ map <Leader>w :call OpenURL()<CR>
 
 " Use Ack instead of Grep when available
 if executable("ack")
-  set grepprg=ack\ -H\ --nogroup\ --nocolor\ --ignore-dir=tmp\ --ignore-dir=coverage
+  set grepprg=ack\ -H\ --nogroup\ --nocolor\ --ignore-dir=tmp\ --ignore-dir=coverage\ --ignore-dir=doc\
 endif
 
 if filereadable(".vimrc.local")
